@@ -2,6 +2,7 @@ const { test, expect } = require('@jest/globals')
 
 const { normalizeURL } = require('./crawl.js')
 
+
 test('Test normalizeURL: getting a URL and remove protocol', () => {
     expect(normalizeURL('https://images.google.com/home')).toBe('images.google.com/home')
 });

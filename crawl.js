@@ -8,6 +8,7 @@ function normalizeURL(urlInput) {
     if (hostPath.length > 0 && hostPath.slice(-1) === '/') {
         return hostPath.slice(0, -1) // remove final / from URL
     }
+    return hostPath
 
     //return fullURL.hostname.replace('www.', '') + fullURL.pathname.slice(0,-1) //return normalised url without /
 
