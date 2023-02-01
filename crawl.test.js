@@ -21,6 +21,7 @@ const { getURLSFromHTML } = require('./crawl.js')
 
 const expectedURLS = ["https://www.google.com/images", "https://www.google.com/search"]
 
+
 test('Test getURLSFromHTML: get the array with absolute URLs', () => {
     expect(getURLSFromHTML(`
     <html>
@@ -49,4 +50,17 @@ test('Test getURLSFromHTML: invalid URLs', () => {
             <a href="invalid">Google images</a>
         </body>
     </html>`, 'https://www.google.com')).toEqual([])
+});
+
+
+test('Test getURLSFromHTML: mix of invalid URL, absolute and relative', () => {
+    expect(getURLSFromHTML(`
+    <html>
+        <body>
+            <a href="invalid">invalid path</a>
+            <a href="https://www.google.com/images">Google images</a>
+            <a href="/search">Google search</a>
+            
+        </body>
+    </html>`, 'https://www.google.com')).toEqual(expectedURLS)
 });
