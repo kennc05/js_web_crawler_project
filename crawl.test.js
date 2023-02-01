@@ -16,13 +16,37 @@ test('Test normalizeURL: all lower case', () => {
 });
 
 
-/*
-
+//Testing getURLsFromHTML
 const { getURLSFromHTML } = require('./crawl.js') 
 
-test('Testing html 1', () => {
-    expect(getURLSFromHTML(`<!DOCTYPE html><body><a href="www.google.com/images">Google images</a><a href="www.google.com/search">Google search</a></body>`, 'www.google.com')).toEqual(["www.google.com/images", "www.google.com/search"])
+const expectedURLS = ["https://www.google.com/images", "https://www.google.com/search"]
+
+test('Test getURLSFromHTML: get the array with absolute URLs', () => {
+    expect(getURLSFromHTML(`
+    <html>
+        <body>
+            <a href="https://www.google.com/images">Google images</a>
+            <a href="https://www.google.com/search">Google search</a>
+        </body>
+    </html>`, 'www.google.com')).toEqual(expectedURLS, 'google.com')
 });
 
 
-*/
+test('Test getURLSFromHTML: get the array with relative URLs', () => {
+    expect(getURLSFromHTML(`
+    <html>
+        <body>
+            <a href="/images">Google images</a>
+            <a href="/search">Google search</a>
+        </body>
+    </html>`, 'https://www.google.com')).toEqual(expectedURLS, 'https://www.google.com')
+});
+
+test('Test getURLSFromHTML: invalid URLs', () => {
+    expect(getURLSFromHTML(`
+    <html>
+        <body>
+            <a href="invalid">Google images</a>
+        </body>
+    </html>`, 'https://www.google.com')).toEqual([])
+});

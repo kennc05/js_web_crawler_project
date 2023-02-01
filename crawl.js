@@ -3,8 +3,6 @@ const { JSDOM } = require('jsdom');
 function normalizeURL(urlInput) {
     const fullURL = new URL(urlInput); //URL function will lowercase automatically
     const hostPath =  `${fullURL.hostname}${fullURL.pathname}`
-    console.log(hostPath)
-
     if (hostPath.length > 0 && hostPath.slice(-1) === '/') {
         return hostPath.slice(0, -1) // remove final / from URL
     }
@@ -20,7 +18,22 @@ function getURLSFromHTML(htmlBody, baseURL) {
     const results = dom.window.document.querySelectorAll('a');
 
     results.forEach((result) => { 
-        foundURLS.push(result.href)
+        if (result.href.slice(0, 1)=== '/') { //check if relative or absolute path
+            try {
+                urlObj = new URL(`${baseURL}${result}`)
+                foundURLS.push(`${baseURL}${result}`)
+            } catch (err) {
+                console.log(`relative url is not valid: ${err.message}, URL found was: ${baseURL}${result}`) // if url is not valid
+            }
+            
+        } else {
+            try {
+                urlObj = new URL(`${result.href}`)
+                foundURLS.push(result.href)
+            } catch (err) {
+                console.log(`absolute url is not valid: ${err.message}, URL found was: ${baseURL}${result}`) // if url is not valid
+            }
+        }
     });
 
     return foundURLS
