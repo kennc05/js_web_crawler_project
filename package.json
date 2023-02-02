@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node main.js",
-    "test": "jest",
-    "crawl": "node crawl.js"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
