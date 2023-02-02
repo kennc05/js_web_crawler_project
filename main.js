@@ -1,4 +1,13 @@
+/*
+*
+* Purpose: Main file to run the crawler
+* Author: @kennc05 
+* Date created: 30/01/23
+*
+*/
+
 const {crawlPage} = require('./crawl.js')
+const {printReport} = require('./report.js')
 
 async function main() {
 
@@ -12,7 +21,7 @@ async function main() {
         console.log(`Starting web crawler now at URL: ${arguments[2]}`);
     }
     const results = await crawlPage(arguments[2], arguments[2], {});
-    console.log(results)
+    printReport(results);
 }
 
 main()

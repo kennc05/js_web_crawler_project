@@ -1,3 +1,11 @@
+/*
+*
+* Purpose: Testing each of the functions in the crawl.js
+* Author: @kennc05 
+* Date created: 30/01/23
+*
+*/
+
 const { test, expect } = require('@jest/globals')
 
 const { normalizeURL } = require('./crawl.js')
