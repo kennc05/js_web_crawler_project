@@ -1,27 +1,15 @@
-console.log('hello world')
-
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  
-
-
-var arguments = process.argv;
-
+const {crawlPage} = require('./crawl.js')
 
 function main() {
-
-    var arguments = process.argv;
-    console.log(arguments)
-
-
-    /*if (baseURL.length > 1) {
-        throw Error('arguements entered are incorrect, please check');
+    var arguments = process.argv //get the arguements passed when starting from CLI
+    if (arguments.length < 3) {
+        console.log('nothing was provided, please double check');
+        process.exit(1)
+    } else if (arguments.length > 3) {
+        console.log('too many arguments provided');
     } else {
-        console.log('Starting web crawler now')
+        console.log(`Starting web crawler now at URL:${arguments[2]}`);
     }
-    */
+    crawlPage(arguments[2])
 }
-
 main()
